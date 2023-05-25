@@ -18,6 +18,12 @@ export const Input = ({
       value={value}
       error={Boolean(error)}
       helperText={error}
+      sx={{
+        marginTop: 5,
+        "& fieldset": {
+          boarderRadius: "25px",
+        },
+      }}
     />
   );
 };
