@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { authetnicateUser as authUser } from "../redux/slices";
+import {
+  authetnicateUser as authUser,
+  logout as logoutUser,
+} from "../redux/slices";
 import { useNavigate } from "react-router-dom";
 
 export const useUser = () => {
@@ -7,6 +10,10 @@ export const useUser = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(logoutUser());
+  };
 
   const authenticateUser = (data) => {
     dispatch(authUser(data))
@@ -19,5 +26,6 @@ export const useUser = () => {
   return {
     userData,
     authenticateUser,
+    logout,
   };
 };

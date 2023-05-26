@@ -1,1 +1,1 @@
-export { authetnicateUser, userReducer } from "./userSlice";
+export { authetnicateUser, userReducer, logout } from "./userSlice";

@@ -8,7 +8,7 @@ import { useUser } from "../../hooks/useUser";
 export const RegisterForm = () => {
   const {
     formValues: registerFormValues,
-    onInputChange: onRegisterinputChange,
+    onFormChange: onRegisterinputChange,
   } = useForm({ defaultFormValues: generateRegisterFormValues() });
 
   const { authenticateUser } = useUser();
@@ -18,7 +18,10 @@ export const RegisterForm = () => {
     const lastName = registerFormValues.lastName.value;
     const email = registerFormValues.email.value;
     const password = registerFormValues.password.value;
-    authenticateUser({ formValues: { firstName, lastName, email, password } });
+    authenticateUser({
+      formValues: { firstName, lastName, email, password },
+      isLogin: false,
+    });
   };
 
   return (
