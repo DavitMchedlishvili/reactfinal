@@ -1,6 +1,6 @@
 import { Box, Avatar, IconButton, Menu, styled, MenuItem } from "@mui/material";
 import React, { useState } from "react";
-import { getUsersInitials } from "../../helpers";
+import { getUsersInitials, isUserAdmin } from "../../helpers";
 import { useUser } from "../../hooks";
 import { Button } from "../atoms";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,16 @@ export const UserIcon = () => {
               >
                 Log Out
               </Button>
+              {isUserAdmin(userData) && (
+                <Button
+                  onClick={() => {
+                    navigate("/products/new");
+                    setAnchor(null);
+                  }}
+                >
+                  Add Product
+                </Button>
+              )}
             </MenuItem>
           ) : (
             <Box>

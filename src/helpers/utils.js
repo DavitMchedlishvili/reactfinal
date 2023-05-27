@@ -5,3 +5,6 @@ export const getUsersInitials = (firstName, lastName) => {
     .toUpperCase()}`;
   return initials;
 };
+
+export const isUserAdmin = (user) =>
+  user ? user.role.includes("admin") : false;

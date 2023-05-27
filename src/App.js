@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "./components/header/Header";
 import { RoutesComponent } from "./Route";
 import { Box, styled } from "@mui/material";
+import { useProduct } from "./hooks/useProduct";
 
 const StyledContentContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -12,7 +13,11 @@ const StyledContentContainer = styled(Box)(({ theme }) => ({
   padding: 10,
 }));
 
-function App() {
+const App = () => {
+  const { getHomePageProducts } = useProduct();
+  useEffect(() => {
+    getHomePageProducts();
+  }, []);
   return (
     <Box>
       <Header />
@@ -21,6 +26,6 @@ function App() {
       </StyledContentContainer>
     </Box>
   );
-}
+};
 
 export default App;
