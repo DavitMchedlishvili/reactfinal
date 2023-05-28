@@ -3,9 +3,11 @@ import { axiosInstance } from "../../helpers";
 
 export const saveProduct = createAsyncThunk(
   "product/saveProduct",
-  async ({ product }, { rejectWithValue, dispatch }) => {
+  async ({ product, isUpdating, id }, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await axiosInstance.post("/products", { product });
+      const endpoint = isUpdating ? `/products/${id}` : "/products/";
+      const method = isUpdating ? "put" : "post";
+      const { data } = await axiosInstance[method](endpoint, { product });
       dispatch(fetchHomePageProducts());
       return data;
     } catch (error) {
@@ -33,6 +35,13 @@ const productSlice = createSlice({
     product: null,
     error: null,
     homePageProducts: [],
+    selectedProduct: null,
+  },
+
+  reducers: {
+    setSelectedProduct: (state, action) => {
+      state.selectedProduct = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchHomePageProducts.pending, (state) => {
@@ -64,3 +73,4 @@ const productSlice = createSlice({
 };
 
 export const productReducer = productSlice.reducer;
+export const { setSelectedProduct } = productSlice.actions;

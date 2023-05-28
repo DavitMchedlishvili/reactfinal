@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filebase64 from "react-file-base64";
 import { Button, FormContainer, Input } from "../../atoms";
 import { useForm } from "../../../hooks";
@@ -6,11 +6,22 @@ import { generateProductFormValues } from "./generateProductFormValues";
 import { useProduct } from "../../../hooks/useProduct";
 
 export const ProductForm = () => {
-  const { formValues: productFormValues, onFormChange: onProductFormChange } =
-    useForm({ defaultFormValues: generateProductFormValues() });
+  const {
+    formValues: productFormValues,
+    onFormChange: onProductFormChange,
+    setFormValues,
+  } = useForm({ defaultFormValues: generateProductFormValues() });
 
-  const { saveProduct } = useProduct();
+  const { saveProduct, selectedProduct } = useProduct();
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setFormValues(generateProductFormValues(selectedProduct));
+      setImage(selectedProduct?.image);
+    }
+  }, [selectedProduct]);
+
   const onSave = () => {
     const name = productFormValues.name.value;
     const description = productFormValues.description.value;
@@ -19,6 +30,8 @@ export const ProductForm = () => {
     const price = productFormValues.price.value;
     saveProduct({
       product: { name, description, brand, category, price, image },
+      isUpdating: !!selectedProduct,
+      id: selectedProduct._id,
     });
   };
 

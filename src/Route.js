@@ -21,6 +21,14 @@ export const RoutesComponent = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/products/edit/:name"
+        element={
+          <ProtectedRoute isUserAdmin={isUserAdmin(userData)}>
+            <ProductFormPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
