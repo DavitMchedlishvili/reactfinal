@@ -106,7 +106,15 @@ export const ProductCard = ({ product }) => {
               </Button>
             )}
 
-            {<Button onClick={() => deleteProduct(_id)}>delete</Button>}
+            {
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "#e1ad01", color: "red" }}
+                onClick={() => deleteProduct(_id)}
+              >
+                Delete
+              </Button>
+            }
           </StyledCardActionsContainer>
         </CardActions>
       </StyledCard>
