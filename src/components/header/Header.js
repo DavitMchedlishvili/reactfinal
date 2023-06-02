@@ -4,14 +4,19 @@ import { Button, Link } from "../atoms";
 import { UserIcon } from "./UserIcon";
 import { CartDrawer } from "./CartDrawer";
 import { useCart } from "../../hooks";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { RiSideBarFill } from "react-icons/ri";
+import { BiHomeAlt } from "react-icons/bi";
+import { SearchBar } from "./SearchBar";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  background: "red",
+  background: "#ADD8E6",
+  boxShadow: "none",
   [theme.breakpoints.down("sm")]: {
     width: "100%",
   },
   [theme.breakpoints.up("sm")]: {
-    width: "calc(100% - 255px)",
+    width: "calc(100% - 225px)",
   },
   padding: "0 37px 0 30px",
 }));
@@ -22,17 +27,28 @@ const StyledToolBar = styled(Toolbar)(() => ({
   justifyContent: "space-between",
 }));
 
-export const Header = () => {
+export const Header = ({ setIsDrawerOpen }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems } = useCart();
-  console.log("cart", isCartOpen);
+
   return (
     <Box>
       <StyledAppBar>
         <StyledToolBar>
-          <Link linkTo="/">Home</Link>
+          <Button
+            onClick={() => setIsDrawerOpen((prev) => !prev)}
+            sx={{ display: { sm: "none" } }}
+          >
+            <RiSideBarFill size={35} cursor={"pointer"} color="black" />
+          </Button>
+          <Link to="/">
+            <BiHomeAlt size={35} cursor={"pointer"} color="black" />
+          </Link>
+          <SearchBar />
           <UserIcon />
-          <Button onClick={() => setIsCartOpen(true)}>Open Cart</Button>
+          <Button onClick={() => setIsCartOpen(true)}>
+            <AiOutlineShoppingCart size={35} cursor={"pointer"} color="black" />
+          </Button>
           <CartDrawer
             isCartOpen={isCartOpen}
             cartItems={cartItems}

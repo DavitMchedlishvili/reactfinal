@@ -1,6 +1,6 @@
-import { Box, Button, Drawer, styled } from "@mui/material";
+import { Box, Drawer, styled } from "@mui/material";
 import React from "react";
-import { Text } from "../atoms";
+import { Button, Text } from "../atoms";
 import { useCart, useUser } from "../../hooks";
 
 const StyledCartItem = styled(Box)(() => ({
@@ -11,10 +11,10 @@ const StyledCartItem = styled(Box)(() => ({
   marginBottom: 20,
 }));
 
-const StyledButtonContainer = styled(Button)(() => ({
+const StyledButtonContainer = styled(Box)({
   display: "flex",
-  justifyContent: " center",
-}));
+  justifyContent: "center",
+});
 
 export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
   const { userData } = useUser();
@@ -27,34 +27,35 @@ export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
     >
       {cartItems.map((item) => {
         const { product, quantity } = item;
-        const { price, name, id, image } = product;
-
+        const { price, name, _id, image } = product;
         return (
-          <StyledCartItem>
+          <StyledCartItem key={_id}>
             <img
               src={image}
-              alt={`${name}-Img`}
+              alt={`${name} - img `}
               width="70px"
               height="70px"
               style={{ objectFit: "cover", borderRadius: 5 }}
             />
+
             <Box sx={{ paddingLeft: 2 }}>
               <Text>{name}</Text>
-              <Text>Quantity: {quantity}</Text>
-              <Text>Total: ${price * quantity}</Text>
+              <Text>Quantity:{quantity}</Text>
+              <Text>Total:{price * quantity}</Text>
             </Box>
           </StyledCartItem>
         );
       })}
+
       <StyledButtonContainer>
-        <Button onClick={() => clearCart(userData?._id)}>Clear Cart</Button>
+        <Button onClick={() => clearCart(userData._id)}> clear cart </Button>
         {!!userData && (
           <Button
             onClick={() => {
               saveCart({ userId: userData?._id, cartItems });
             }}
           >
-            Save Cart
+            save Cart
           </Button>
         )}
       </StyledButtonContainer>

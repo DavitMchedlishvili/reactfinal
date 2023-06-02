@@ -1,7 +1,14 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { HomePage, RegisterPage, LoginPage, ProductFormPage } from "./pages";
+import {
+  HomePage,
+  RegisterPage,
+  LoginPage,
+  ProductFormPage,
+  CategoryProductsPage,
+  SingleProductPage,
+} from "./pages";
 import { ProtectedRoute, isUserAdmin } from "./helpers";
 import { useUser } from "./hooks";
 
@@ -28,6 +35,14 @@ export const RoutesComponent = () => {
             <ProductFormPage />
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/products/categories/:categoryName"
+        element={<CategoryProductsPage />}
+      />
+      <Route
+        path="/products/categories/:categoryName/:id"
+        element={<SingleProductPage />}
       />
     </Routes>
   );

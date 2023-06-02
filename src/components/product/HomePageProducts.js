@@ -9,7 +9,7 @@ export const HomePageProducts = () => {
     <LoadingWrapper isLoading={isProductLoading}>
       <GridContainer>
         {homePageProducts.map((item) => (
-          <ProductCard product={item} />
+          <ProductCard product={item} key={item._id} />
         ))}
       </GridContainer>
     </LoadingWrapper>

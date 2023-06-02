@@ -1,9 +1,9 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-export const Link = ({ children, linkTo }) => {
+export const Link = ({ children, to }) => {
   return (
-    <RouterLink to={linkTo} style={{ textDecoration: "none", color: "black" }}>
+    <RouterLink to={to} style={{ textDecoration: "none", color: "black" }}>
       {children}
     </RouterLink>
   );

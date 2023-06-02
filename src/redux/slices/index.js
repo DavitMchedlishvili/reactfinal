@@ -3,7 +3,12 @@ export {
   productReducer,
   saveProduct,
   fetchHomePageProducts,
+  fetchCategoryProducts,
   setSelectedProduct,
+  rateProduct,
+  fetchSingleProduct,
+  queryProducts,
+  clearSearchResults,
 } from "./productSlice";
 
 export {

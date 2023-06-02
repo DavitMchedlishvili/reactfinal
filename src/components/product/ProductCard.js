@@ -1,13 +1,13 @@
-import { Box, styled, Card, Grid, CardActions } from "@mui/material";
-import React from "react";
+import { Box, styled, Card, Grid, CardActions, Rating } from "@mui/material";
+// import React, { useState } from "react";
 import { Button, Link, Text } from "../atoms";
 import { useCart, useUser } from "../../hooks";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { isUserAdmin } from "../../helpers";
 import { useProduct } from "../../hooks/useProduct";
 
 const StyledCard = styled(Card)(() => ({
-  width: 350,
+  width: 370,
   borderRadius: 3,
 }));
 
@@ -25,11 +25,12 @@ const StyledCardActionsContainer = styled(Box)(() => ({
 }));
 
 export const ProductCard = ({ product }) => {
-  const { name, _id, image, price, category } = product;
+  const { name, _id, image, price, category, averageRating } = product;
   const { userData } = useUser();
   const navigate = useNavigate();
-  const { setSelectedProduct } = useProduct();
+  const { setSelectedProduct, rateProducts } = useProduct();
   const { addToCart, cartItems, removeFromcart } = useCart();
+  const { pathname, search } = useLocation();
 
   const onEdit = () => {
     navigate(`/products/edit/${name}`);
@@ -38,10 +39,21 @@ export const ProductCard = ({ product }) => {
 
   const isProductInCart = cartItems?.find((item) => item.product._id === _id);
 
+  const onRatingChange = (e) => {
+    const { value } = e.target;
+    rateProducts({
+      productId: _id,
+      userId: userData?._id,
+      rating: Number(value),
+      isHome: pathname === "/",
+      url: `${category}${search}&size=1`,
+    });
+  };
+
   return (
     <Grid item>
       <StyledCard>
-        <Link>
+        <Link to={`/products/categories/${category}/${_id}`}>
           <img
             src={image}
             alt={`${category}-${name}`}
@@ -52,7 +64,12 @@ export const ProductCard = ({ product }) => {
             <Text>${price}</Text>
           </StyledInfoContainer>
         </Link>
-        <CardActions>
+        <CardActions sx={{ display: "flex", flexDirection: "column" }}>
+          <Rating
+            value={averageRating}
+            disabled={!userData}
+            onChange={onRatingChange}
+          />
           <StyledCardActionsContainer>
             {isProductInCart ? (
               <>
@@ -64,7 +81,6 @@ export const ProductCard = ({ product }) => {
               <Button onClick={() => addToCart(product)}>Add to cart</Button>
             )}
 
-            <Button>Remove from cart</Button>
             {isUserAdmin(userData) && (
               <Button onClick={onEdit}>Edit Product</Button>
             )}
