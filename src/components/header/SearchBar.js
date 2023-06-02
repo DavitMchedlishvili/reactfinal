@@ -6,7 +6,12 @@ import { useProduct } from "../../hooks/useProduct";
 export const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { searchResults, searchProducts, clearSearchResults } = useProduct();
+  const {
+    searchResults,
+    searchProducts,
+    clearSearchResults,
+    getHomePageProducts,
+  } = useProduct();
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -14,17 +19,18 @@ export const SearchBar = () => {
         searchProducts(searchQuery);
       } else {
         clearSearchResults();
+        getHomePageProducts();
       }
     }, 500);
     return () => {
       clearTimeout(timerId);
     };
   }, [searchQuery]);
-  console.log("searchResults", searchResults);
+
   return (
     <Autocomplete
       freeSolo
-      sx={{ width: 300 }}
+      sx={{ width: 500 }}
       disableClearable
       options={searchResults}
       getOptionLabel={(option) => option.name}

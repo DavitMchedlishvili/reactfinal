@@ -9,6 +9,8 @@ export const Paginate = ({ totalPages, currentPage, changePage }) => {
       onChange={(_, value) => {
         changePage("page", value);
       }}
+      variant="outlined"
+      color="secondary"
     />
   );
 };

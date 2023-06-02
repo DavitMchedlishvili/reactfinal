@@ -11,7 +11,7 @@ export const saveProduct = createAsyncThunk(
       dispatch(fetchHomePageProducts());
       return data;
     } catch (error) {
-      return rejectWithValue("couldn't save product");
+      return rejectWithValue("Couldn't save product");
     }
   }
 );
@@ -23,7 +23,7 @@ export const fetchHomePageProducts = createAsyncThunk(
       const { data } = await axiosInstance.get("/products");
       return data;
     } catch (error) {
-      rejectWithValue("couldn't fetch product");
+      rejectWithValue("Couldn't fetch product");
     }
   }
 );
@@ -84,7 +84,7 @@ export const queryProducts = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue("couldNot found product");
+      return rejectWithValue("Could Not found product");
     }
   }
 );

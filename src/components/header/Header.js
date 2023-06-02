@@ -10,7 +10,7 @@ import { BiHomeAlt } from "react-icons/bi";
 import { SearchBar } from "./SearchBar";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  background: "#ADD8E6",
+  background: "#73a580",
   boxShadow: "none",
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -44,8 +44,10 @@ export const Header = ({ setIsDrawerOpen }) => {
           <Link to="/">
             <BiHomeAlt size={35} cursor={"pointer"} color="black" />
           </Link>
+
           <SearchBar />
           <UserIcon />
+
           <Button onClick={() => setIsCartOpen(true)}>
             <AiOutlineShoppingCart size={35} cursor={"pointer"} color="black" />
           </Button>

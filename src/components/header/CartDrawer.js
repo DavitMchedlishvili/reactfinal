@@ -2,6 +2,7 @@ import { Box, Drawer, styled } from "@mui/material";
 import React from "react";
 import { Button, Text } from "../atoms";
 import { useCart, useUser } from "../../hooks";
+import { MdDelete } from "react-icons/md";
 
 const StyledCartItem = styled(Box)(() => ({
   width: 400,
@@ -48,7 +49,13 @@ export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
       })}
 
       <StyledButtonContainer>
-        <Button onClick={() => clearCart(userData._id)}> clear cart </Button>
+        <Button
+          onClick={() => clearCart(userData._id)}
+          variant="outlined"
+          startIcon={<MdDelete />}
+        >
+          clear cart
+        </Button>
         {!!userData && (
           <Button
             onClick={() => {

@@ -4,6 +4,7 @@ import { getUsersInitials, isUserAdmin } from "../../helpers";
 import { useUser } from "../../hooks";
 import { Button } from "../atoms";
 import { useNavigate } from "react-router-dom";
+import { CgLogOut } from "react-icons/cg";
 
 const StyledBox = styled(Box)(() => ({
   display: "flex",
@@ -18,8 +19,11 @@ export const UserIcon = () => {
 
   return (
     <Box>
-      <IconButton onClick={(e) => setAnchor(e.currentTarget)}>
-        <Avatar>
+      <IconButton
+        onClick={(e) => setAnchor(e.currentTarget)}
+        sx={{ backgroundColor: "#3e363f" }}
+      >
+        <Avatar sx={{ backgroundColor: "#3e363f" }}>
           {getUsersInitials(userData?.firstName, userData?.lastName)}
         </Avatar>
       </IconButton>
@@ -33,13 +37,16 @@ export const UserIcon = () => {
       >
         <StyledBox>
           {!!userData ? (
-            <MenuItem>
+            <MenuItem sx={{ gap: "5px" }}>
               <Button
                 onClick={() => {
                   logout();
                   setAnchor(null);
                 }}
+                sx={{ gap: "5px" }}
+                variant="outlined"
               >
+                <CgLogOut />
                 Log Out
               </Button>
               {isUserAdmin(userData) && (
@@ -48,6 +55,7 @@ export const UserIcon = () => {
                     navigate("/products/new");
                     setAnchor(null);
                   }}
+                  variant="outlined"
                 >
                   Add Product
                 </Button>

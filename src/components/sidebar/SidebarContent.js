@@ -20,7 +20,7 @@ export const SidebarContent = ({ categories }) => {
               <Link to={`/products/categories/${name}?page=1&sort=price,desc`}>
                 <Box sx={{ display: "flex" }}>
                   <StyledListItem>
-                    <ListItemText secondary={name} />
+                    <ListItemText primary={name} sx={{ color: "black" }} />
                   </StyledListItem>
                 </Box>
               </Link>

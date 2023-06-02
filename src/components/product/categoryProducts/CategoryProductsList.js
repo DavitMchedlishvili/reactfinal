@@ -16,7 +16,7 @@ export const CategoryProductsList = () => {
   const { value: sort, changeQueryValue: changeSort } = useQueryParams("sort");
 
   useEffect(() => {
-    fetchCategoryProducts(`${categoryName}?page=${page}&size=1&sort=${sort}`);
+    fetchCategoryProducts(`${categoryName}?page=${page}&size=2&sort=${sort}`);
   }, [categoryName, page, sort]);
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const StyledCard = styled(Card)(() => ({
 
 const StyledInfoContainer = styled(Box)(() => ({
   display: "flex",
-  flexDirection: "column",
+  // flexDirection: "column",
   justifyContent: "space-between",
   padding: "0 10px",
 }));
@@ -22,6 +22,7 @@ const StyledCardActionsContainer = styled(Box)(() => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  gap: "5px",
 }));
 
 export const ProductCard = ({ product }) => {
@@ -46,7 +47,7 @@ export const ProductCard = ({ product }) => {
       userId: userData?._id,
       rating: Number(value),
       isHome: pathname === "/",
-      url: `${category}${search}&size=1`,
+      url: `${category}${search}&size=2`,
     });
   };
 
@@ -61,7 +62,7 @@ export const ProductCard = ({ product }) => {
           />
           <StyledInfoContainer>
             <Text>{name}</Text>
-            <Text>${price}</Text>
+            <Text>$ {price}</Text>
           </StyledInfoContainer>
         </Link>
         <CardActions sx={{ display: "flex", flexDirection: "column" }}>
@@ -78,11 +79,23 @@ export const ProductCard = ({ product }) => {
                 <Button onClick={() => addToCart(product)}>+</Button>
               </>
             ) : (
-              <Button onClick={() => addToCart(product)}>Add to cart</Button>
+              <Button
+                onClick={() => addToCart(product)}
+                variant="contained"
+                sx={{ bgcolor: "#e1ad01" }}
+              >
+                Add to cart
+              </Button>
             )}
 
             {isUserAdmin(userData) && (
-              <Button onClick={onEdit}>Edit Product</Button>
+              <Button
+                onClick={onEdit}
+                variant="outlined"
+                sx={{ borderColor: "#e1ad01", color: "#e1ad01" }}
+              >
+                Edit Product
+              </Button>
             )}
           </StyledCardActionsContainer>
         </CardActions>
