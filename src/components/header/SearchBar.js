@@ -1,12 +1,12 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField, Typography } from "@mui/material";
+import { Link, Text } from "../atoms";
 import React, { useEffect, useState } from "react";
-import { Link } from "../atoms";
-import { Text } from "../atoms";
 import { useProduct } from "../../hooks/useProduct";
 
 export const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState();
-  const { searchProducts, searchResults, clearSearchResults } = useProduct();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { searchResults, searchProducts, clearSearchResults } = useProduct();
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -20,7 +20,7 @@ export const SearchBar = () => {
       clearTimeout(timerId);
     };
   }, [searchQuery]);
-
+  console.log("searchResults", searchResults);
   return (
     <Autocomplete
       freeSolo
@@ -32,7 +32,7 @@ export const SearchBar = () => {
         const { name, category, _id, price } = option;
         return (
           <Link
-            to={`/products/categories/${category}/${_id}`}
+            linkTo={`/products/categories/${category}/${_id}`}
             key={_id}
             state={{ id: _id }}
           >
@@ -46,9 +46,10 @@ export const SearchBar = () => {
       renderInput={(params) => {
         return (
           <TextField
+            {...params}
+            label="search products"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            label="Search"
             inputProps={{
               ...params.inputProps,
               type: "search",

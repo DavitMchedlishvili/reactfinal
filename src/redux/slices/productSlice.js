@@ -79,7 +79,9 @@ export const queryProducts = createAsyncThunk(
   "product/queryProducts",
   async (searchValue, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get(`/products?name=${searchValue}`);
+      const { data } = await axiosInstance.get(
+        `/products/search?name=${searchValue}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue("couldNot found product");
@@ -165,6 +167,7 @@ const productSlice = createSlice({
 
     builder.addCase(queryProducts.fulfilled, (state, action) => {
       state.loading = false;
+      state.homePageProducts = action.payload.products;
       state.searchResults = action.payload.products;
     });
     builder.addCase(queryProducts.rejected, (state, action) => {
