@@ -3,7 +3,7 @@ import { Box, styled, Card, Grid, CardActions, Rating } from "@mui/material";
 import { Button, Link, Text } from "../atoms";
 import { useCart, useUser } from "../../hooks";
 import { useLocation, useNavigate } from "react-router-dom";
-import { isUserAdmin } from "../../helpers";
+import { axiosInstance, isUserAdmin } from "../../helpers";
 import { useProduct } from "../../hooks/useProduct";
 
 const StyledCard = styled(Card)(() => ({
@@ -29,13 +29,21 @@ export const ProductCard = ({ product }) => {
   const { name, _id, image, price, category, averageRating } = product;
   const { userData } = useUser();
   const navigate = useNavigate();
-  const { setSelectedProduct, rateProducts } = useProduct();
+  const { setSelectedProduct, rateProducts, getHomePageProducts } =
+    useProduct();
   const { addToCart, cartItems, removeFromcart } = useCart();
   const { pathname, search } = useLocation();
 
   const onEdit = () => {
     navigate(`/products/edit/${name}`);
     setSelectedProduct(product);
+  };
+
+  const deleteProduct = async (_id) => {
+    const result = await axiosInstance.delete(`/products/${_id}`);
+    if (result) {
+      getHomePageProducts();
+    }
   };
 
   const isProductInCart = cartItems?.find((item) => item.product._id === _id);
@@ -97,6 +105,8 @@ export const ProductCard = ({ product }) => {
                 Edit Product
               </Button>
             )}
+
+            {<Button onClick={() => deleteProduct(_id)}>delete</Button>}
           </StyledCardActionsContainer>
         </CardActions>
       </StyledCard>

@@ -5,6 +5,7 @@ import { useUser } from "../../hooks";
 import { Button } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import { CgLogOut } from "react-icons/cg";
+import { BiUserCircle } from "react-icons/bi";
 
 const StyledBox = styled(Box)(() => ({
   display: "flex",
@@ -24,7 +25,8 @@ export const UserIcon = () => {
         sx={{ backgroundColor: "#3e363f" }}
       >
         <Avatar sx={{ backgroundColor: "#3e363f" }}>
-          {getUsersInitials(userData?.firstName, userData?.lastName)}
+          {/* {getUsersInitials(userData?.firstName, userData?.lastName)} */}
+          <BiUserCircle size={30} />
         </Avatar>
       </IconButton>
       <Menu
