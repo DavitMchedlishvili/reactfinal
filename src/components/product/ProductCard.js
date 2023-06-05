@@ -106,7 +106,7 @@ export const ProductCard = ({ product }) => {
               </Button>
             )}
 
-            {
+            {isUserAdmin(userData) && (
               <Button
                 variant="outlined"
                 sx={{ borderColor: "#e1ad01", color: "red" }}
@@ -114,7 +114,7 @@ export const ProductCard = ({ product }) => {
               >
                 Delete
               </Button>
-            }
+            )}
           </StyledCardActionsContainer>
         </CardActions>
       </StyledCard>
